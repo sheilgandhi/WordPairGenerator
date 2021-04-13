@@ -43,7 +43,17 @@ class RandomWordsState extends State<RandomWords> {
       trailing: Icon(
         alreadySaved ? Icons.favorite : Icons.favorite_border,
         color: alreadySaved ? Colors.red : null,
-      ),
+      ), // At the end of the tile ass the heart
+      onTap: () {
+        // Changes state of wordPair
+        setState(() {
+          if (alreadySaved) {
+            _savedWordPairs.remove(pair);
+          } else {
+            _savedWordPairs.add(pair);
+          }
+        });
+      },
     );
   }
 
