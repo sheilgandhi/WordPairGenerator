@@ -57,6 +57,32 @@ class RandomWordsState extends State<RandomWords> {
     );
   }
 
+  void _pushSaved() {
+    Navigator.of(context)
+        .push(MaterialPageRoute(builder: (BuildContext context) {
+      final Iterable<ListTile> tiles = _savedWordPairs.map((WordPair pair) {
+        return ListTile(
+          title: Text(
+            pair.asPascalCase,
+            style: TextStyle(fontSize: 16.0),
+          ),
+        );
+      });
+
+      final List<Widget> divided =
+          ListTile.divideTiles(context: context, tiles: tiles).toList();
+
+      return Scaffold(
+        appBar: AppBar(
+          title: Text('Saved WordPairs'),
+        ),
+        body: ListView(
+          children: divided,
+        ),
+      );
+    }));
+  }
+
   /**
    * Return app title 
    * Uses the ListView method as the body
@@ -65,6 +91,9 @@ class RandomWordsState extends State<RandomWords> {
     return Scaffold(
       appBar: AppBar(
         title: Text("WordPair Generator"),
+        actions: <Widget>[
+          IconButton(onPressed: _pushSaved, icon: Icon(Icons.list))
+        ],
       ),
       body: _buildList(),
     );
